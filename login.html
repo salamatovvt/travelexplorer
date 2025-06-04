@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Travel Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            padding: 2rem;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .login-form .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .login-form .form-group input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .login-form .forgot-password {
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-form .forgot-password a {
+            color: #2c4a63;
+            text-decoration: none;
+        }
+        
+        .login-form .btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #2c4a63;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .login-form .btn:hover {
+            background-color: #1c3144;
+        }
+        
+        .login-form .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .login-form .social-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .login-form .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            margin: 0 0.5rem;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .login-form .social-icon:hover {
+            background-color: #e0e0e0;
+        }
+        
+        @media (max-width: 768px) {
+            .login-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Travel Explorer</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="map.html">Map</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="registration.html">Sign Up</a></li>
+                    <li><a href="login.html" class="active">Sign In</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="login-container">
+            <div class="login-form">
+                <div class="login-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to continue your journey</p>
+                </div>
+                
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">Sign In</button>
+                    
+                    <div class="signup-link">
+                        <p>Don't have an account? <a href="registration.html">Sign Up</a></p>
+                    </div>
+                    
+                    <div class="social-login">
+                        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Travel Explorer is a community of passionate travelers sharing their experiences and discoveries.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="map.html">Interactive Map</a></li>
+                        <li><a href="profile.html">User Profile</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: nurbekasylbek04@gmail.com</p>
+                    <p>Email: tamerlansalamat04@gmail.com</p>
+                    <p>Phone: +7 (777) 777-7777</p>
+                    <p>Phone: +7 (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tamerlan Nurbek inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="utils.js"></script>
+    <script src="loginscript.js"></script>
+    <script src="profileutil.js"></script>
+</body>
+</html>

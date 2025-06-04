@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Reviews - Travel Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        .reviews-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .review-filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .filter-group select, 
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .star-filter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .star-filter label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .star-filter input {
+            margin-right: 5px;
+        }
+        
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .review-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .review-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .reviewer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e9e9e9;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #1c3144;
+        }
+        
+        .reviewer-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .reviewer-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .reviewer-name {
+            font-weight: bold;
+            color: #1c3144;
+            font-size: 1.1rem;
+        }
+        
+        .review-date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: #f8b400;
+            font-size: 1.2rem;
+        }
+        
+        .review-destination {
+            color: #2c4a63;
+            font-weight: 500;
+        }
+        
+        .review-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+        
+        .review-text {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .review-photos {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .review-photo {
+            width: 120px;
+            height: 90px;
+            border-radius: 4px;
+            background-color: #e9e9e9;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .review-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .review-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            margin-top: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .action-button:hover {
+            color: #1c3144;
+        }
+        
+        .add-review-btn {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .review-filters {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .filter-group {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            
+            .filter-group select,
+            .filter-group input {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .star-filter {
+                flex-wrap: wrap;
+            }
+            
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .review-photos {
+                gap: 8px;
+            }
+            
+            .review-photo {
+                width: 100px;
+                height: 75px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .reviewer-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .reviewer-avatar {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .review-actions {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .review-photo {
+                width: 80px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Travel Explorer</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="map.html">Map</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="registration.html">Sign Up</a></li>
+                    <li><a href="login.html">Sign In</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/review-hero.jpg');">
+        <h1>Traveler Reviews</h1>
+        <p>Discover authentic experiences shared by our community of explorers</p>
+    </section>
+
+    <main class="container">
+        <section id="reviews-section">
+            <h2 class="section-title">Explore Reviews</h2>
+            
+            <div class="reviews-container">
+                <div class="review-filters">
+                    <div class="filter-group">
+                        <select id="destination-filter">
+                            <option value="">All Destinations</option>
+                            <option value="paris">Paris, France</option>
+                            <option value="kyoto">Kyoto, Japan</option>
+                            <option value="barcelona">Barcelona, Spain</option>
+                            <option value="newyork">New York, USA</option>
+                        </select>
+                        
+                        <select id="date-filter">
+                            <option value="">All Time</option>
+                            <option value="month">Last Month</option>
+                            <option value="6months">Last 6 Months</option>
+                            <option value="year">Last Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="star-filter">
+                        <span>Rating:</span>
+                        <label><input type="checkbox" checked> 5 <i class="fas fa-star"></i></label>
+                        <label><input type="checkbox" checked> 4 <i class="fas fa-star"></i></label>
+                        <label><input type="checkbox" checked> 3 <i class="fas fa-star"></i></label>
+                        <label><input type="checkbox" checked> 2 <i class="fas fa-star"></i></label>
+                        <label><input type="checkbox" checked> 1 <i class="fas fa-star"></i></label>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <input type="text" placeholder="Search reviews..." id="search-reviews">
+                    </div>
+                </div>
+                
+                <div class="reviews-list">
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Eroha Utepbergenov</div>
+                                    <div class="review-date">March 15, 2025</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-destination">Paris, France</div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-content">
+                            <p class="review-text">My trip to Paris exceeded all expectations! The Eiffel Tower at sunset was absolutely breathtaking, and the local cafes in Montmartre were a delightful experience. I stayed in the Latin Quarter and found it very convenient to reach all the major attractions. Make sure to visit the Louvre early in the morning to avoid crowds.</p>
+                            
+                            <div class="review-photos">
+                                <div class="review-photo">
+                                    <img src="" alt="Paris Eiffel Tower">
+                                </div>
+                                <div class="review-photo">
+                                    <img src="" alt="Paris Cafe">
+                                </div>
+                                <div class="review-photo">
+                                    <img src="" alt="Louvre Museum">
+                                </div>
+                            </div>
+                            
+                            <div class="review-actions">
+                                <div class="action-buttons">
+                                    <div class="action-button">
+                                        <i class="fas fa-thumbs-up"></i> Helpful (24)
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-comment"></i> Comment
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-share"></i> Share
+                                    </div>
+                                </div>
+                                <div class="review-destination-link">
+                                    <a href="#" class="btn">View Destination</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Nurbek Assylbek</div>
+                                    <div class="review-date">April 2, 2025</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="review-destination">Kyoto, Japan</div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-content">
+                            <p class="review-text">Kyoto is a magical blend of tradition and modernity. The Fushimi Inari Shrine was absolutely stunning with its thousands of vermilion torii gates. Walking through the bamboo forest in Arashiyama felt like stepping into another world. I recommend getting a rental bicycle to explore the city as many attractions are spread out. The only downside was some areas being extremely crowded during cherry blossom season.</p>
+                            
+                            <div class="review-photos">
+                                <div class="review-photo">
+                                    <img src="" alt="Fushimi Inari">
+                                </div>
+                                <div class="review-photo">
+                                    <img src="" alt="Bamboo Forest">
+                                </div>
+                            </div>
+                            
+                            <div class="review-actions">
+                                <div class="action-buttons">
+                                    <div class="action-button">
+                                        <i class="fas fa-thumbs-up"></i> Helpful (18)
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-comment"></i> Comment
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-share"></i> Share
+                                    </div>
+                                </div>
+                                <div class="review-destination-link">
+                                    <a href="#" class="btn">View Destination</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Ibragim Saiffulin</div>
+                                    <div class="review-date">March 24, 2025</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <div class="review-destination">Barcelona, Spain</div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-content">
+                            <p class="review-text">Barcelona is a perfect mix of beach, architecture, and amazing food! Gaudi's masterpieces are even more impressive in person - the Sagrada Familia left me speechless. The Gothic Quarter's narrow streets are perfect for wandering and discovering hidden gems. I spent evenings at the waterfront enjoying sangria and watching street performers. Tip: Buy tickets for popular attractions online in advance to skip lines.</p>
+                            
+                            <div class="review-photos">
+                                <div class="review-photo">
+                                    <img src="" alt="Sagrada Familia">
+                                </div>
+                                <div class="review-photo">
+                                    <img src="" alt="Gothic Quarter">
+                                </div>
+                                <div class="review-photo">
+                                    <img src="" alt="Barcelona Beach">
+                                </div>
+                            </div>
+                            
+                            <div class="review-actions">
+                                <div class="action-buttons">
+                                    <div class="action-button">
+                                        <i class="fas fa-thumbs-up"></i> Helpful (31)
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-comment"></i> Comment
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-share"></i> Share
+                                    </div>
+                                </div>
+                                <div class="review-destination-link">
+                                    <a href="#" class="btn">View Destination</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <div class="reviewer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="reviewer-details">
+                                    <div class="reviewer-name">Alnur Shldenov</div>
+                                    <div class="review-date">April 10, 2025</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <div class="review-destination">Grand Canyon, USA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-content">
+                            <p class="review-text">The Grand Canyon is truly majestic, and the views are incredible. I hiked part of the South Kaibab Trail which offered stunning vistas. However, I'm giving this 3 stars because the tourist facilities were overcrowded and somewhat overpriced. Also, parking was a nightmare - arrive very early or use the shuttle service. If you're planning to hike, make sure to bring plenty of water and sun protection as there's very little shade.</p>
+                            
+                            <div class="review-photos">
+                                <div class="review-photo">
+                                    <img src="" alt="Grand Canyon View">
+                                </div>
+                            </div>
+                            
+                            <div class="review-actions">
+                                <div class="action-buttons">
+                                    <div class="action-button">
+                                        <i class="fas fa-thumbs-up"></i> Helpful (9)
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-comment"></i> Comment
+                                    </div>
+                                    <div class="action-button">
+                                        <i class="fas fa-share"></i> Share
+                                    </div>
+                                </div>
+                                <div class="review-destination-link">
+                                    <a href="#" class="btn">View Destination</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="add-review-btn">
+                    <a href="#" class="btn">Write Your Review</a>
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Travel Explorer is a community of passionate travelers sharing their experiences and discoveries.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="map.html">Interactive Map</a></li>
+                        <li><a href="profile.html">User Profile</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: nurbekasylbek04@gmail.com</p>
+                    <p>Email: tamerlansalamat04@gmail.com</p>
+                    <p>Phone: +7 (777) 777-7777</p>
+                    <p>Phone: +7 (123) 456-7890</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tamerlan Nurbek inc.. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+<script src="reviewsscript.js"></script>
+</body>
+</html>
